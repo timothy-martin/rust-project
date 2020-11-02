@@ -1,0 +1,23 @@
+[package]
+name = "cfgrammar"
+description = "Grammar manipulation"
+repository = "https://github.com/softdevteam/grmtools"
+version = "0.9.1"
+authors = ["Laurence Tratt <http://tratt.net/laurie/>"]
+edition = "2018"
+readme = "README.md"
+license = "Apache-2.0/MIT"
+categories = ["parsing"]
+keywords = ["yacc", "grammar"]
+
+[lib]
+name = "cfgrammar"
+path = "src/lib/mod.rs"
+
+[dependencies]
+lazy_static = "1.0"
+indexmap = "1.3"
+num-traits = "0.2"
+regex = "1.3"
+serde = { version="1.0", features=["derive"], optional=true }
+vob = { version="2.0", features=["serde"] }
