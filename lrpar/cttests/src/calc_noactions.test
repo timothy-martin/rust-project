@@ -1,0 +1,26 @@
+name: Test NoAction using the calculator grammar
+yacckind: Original(YaccOriginalActionKind::NoAction)
+grammar: |
+    %start Expr
+    %avoid_insert 'INT'
+    %%
+    Expr: Expr '+' Term
+        | Term
+        ;
+
+    Term: Term '*' Factor
+        | Factor
+        ;
+
+    Factor: '(' Expr ')'
+          | 'INT'
+          ;
+
+lexer: |
+    %%
+    [0-9]+ "INT"
+    \+ "+"
+    \* "*"
+    \( "("
+    \) ")"
+    [\t ]+ ;
