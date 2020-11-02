@@ -10,4 +10,4 @@ edition = "2018"
 lrlex = "0.9.1"
 
 [patch.crates-io]
-lrlex = { path = "../../grmtools/lrlex" }
+lrlex = { path = "../lrlex" }
