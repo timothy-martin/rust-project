@@ -1,0 +1,24 @@
+[package]
+name = "lrtable"
+description = "LR grammar table generation"
+repository = "https://github.com/softdevteam/grmtools"
+version = "0.9.1"
+authors = ["Lukas Diekmann <http://lukasdiekmann.com/>", "Laurence Tratt <http://tratt.net/laurie/>"]
+edition = "2018"
+readme = "README.md"
+license = "Apache-2.0/MIT"
+categories = ["parsing"]
+
+[lib]
+name = "lrtable"
+path = "src/lib/mod.rs"
+
+[dependencies]
+fnv = "1.0"
+num-traits = "0.2"
+cfgrammar = { path="../cfgrammar", version = "0.9", features=["serde"] }
+serde = { version="1.0", features=["derive"], optional=true }
+vob = { version="2.0", features=["serde"] }
+sparsevec = { version="0.1", features=["serde"] }
+static_assertions = "1.1"
+try_from = "0.3"
