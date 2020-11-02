@@ -1,0 +1,17 @@
+[package]
+name = "calclex"
+version = "0.1.0"
+authors = ["Laurence Tratt <http://tratt.net/laurie/>"]
+edition = "2018"
+license = "Apache-2.0/MIT"
+
+[[bin]]
+doc = false
+name = "calclex"
+
+[build-dependencies]
+lrlex = { path = "../.." }
+
+[dependencies]
+lrlex = { path = "../.." }
+lrpar = { path = "../../../lrpar" }
