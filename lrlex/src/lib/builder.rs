@@ -197,7 +197,7 @@ where
                 Box::new(LRNonStreamingLexerDef::from_str(&read_to_string(&inp)?)?)
             },
             LexerKind::Flex => {
-                // tpm TODO needFlexDef
+                // tpm TODO need FlexDef
                 Box::new(LRNonStreamingLexerDef::from_str(&read_to_string(&inp)?)?)
             },
         };
@@ -265,6 +265,16 @@ where
             LexerKind::LRNonStreamingLexer => (
                 "LRNonStreamingLexerDef",
                 format!("LRNonStreamingLexerDef<{}>", type_name::<StorageT>()),
+            ),
+            //tpm TODO LexDef undefined
+            LexerKind::Lex => (
+                "LexDef",
+                format!("LexDef<{}>", type_name::<StorageT>()),
+            ),
+            //tpm TODO FlexDef undefined
+            LexerKind::Flex => (
+                "FlexDef",
+                format!("FlexDef<{}>", type_name::<StorageT>()),
             ),
         };
 
