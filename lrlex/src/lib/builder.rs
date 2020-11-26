@@ -191,15 +191,9 @@ where
         Q: AsRef<Path>,
     {
         let mut lexerdef: Box<dyn LexerDef<StorageT>> = match self.lexerkind {
-            LexerKind::LRNonStreamingLexer => {
-                Box::new(LRNonStreamingLexerDef::from_str(&read_to_string(&inp)?)?)
-            },
-            LexerKind::Lex => {
-                // tpm TODO need LexDef
-                Box::new(LRNonStreamingLexerDef::from_str(&read_to_string(&inp)?)?)
-            },
+            LexerKind::LRNonStreamingLexer |
+            LexerKind::Lex | //TODO LexDef / FlexDef ?
             LexerKind::Flex => {
-                // tpm TODO need FlexDef
                 Box::new(LRNonStreamingLexerDef::from_str(&read_to_string(&inp)?)?)
             },
         };
@@ -296,10 +290,11 @@ pub fn lexerdef() -> {lexerdef_type} {{
             };
             outs.push_str(&format!(
                 "
-Rule::new({}, {}, \"{}\".to_string()).unwrap(),",
+Rule::new({}, {}, \"{}\".to_string(), {}).unwrap(),",
                 tok_id,
                 n,
-                r.re_str.replace("\\", "\\\\").replace("\"", "\\\"")
+                r.re_str.replace("\\", "\\\\").replace("\"", "\\\""),
+                self.case_insensitive
             ));
         }
 
