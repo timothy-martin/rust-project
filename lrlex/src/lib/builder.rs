@@ -72,6 +72,7 @@ pub struct LexerBuilder<'a, StorageT = u32> {
     rule_ids_map: Option<HashMap<String, StorageT>>,
     allow_missing_terms_in_lexer: bool,
     allow_missing_tokens_in_parser: bool,
+    case_insensitive: bool,
 }
 
 impl<'a, StorageT> LexerBuilder<'a, StorageT>
@@ -102,6 +103,7 @@ where
             rule_ids_map: None,
             allow_missing_terms_in_lexer: false,
             allow_missing_tokens_in_parser: true,
+            case_insensitive: false,
         }
     }
 
@@ -262,19 +264,11 @@ where
         // Header
 
         let (lexerdef_name, lexerdef_type) = match self.lexerkind {
-            LexerKind::LRNonStreamingLexer => (
+            LexerKind::LRNonStreamingLexer |
+            LexerKind::Lex | //TODO implement LexDef / FlexDef ?
+            LexerKind::Flex => (
                 "LRNonStreamingLexerDef",
                 format!("LRNonStreamingLexerDef<{}>", type_name::<StorageT>()),
-            ),
-            //tpm TODO LexDef undefined
-            LexerKind::Lex => (
-                "LexDef",
-                format!("LexDef<{}>", type_name::<StorageT>()),
-            ),
-            //tpm TODO FlexDef undefined
-            LexerKind::Flex => (
-                "FlexDef",
-                format!("FlexDef<{}>", type_name::<StorageT>()),
             ),
         };
 
@@ -347,6 +341,12 @@ Rule::new({}, {}, \"{}\".to_string()).unwrap(),",
         let mut f = File::create(outp)?;
         f.write_all(outs.as_bytes())?;
         Ok((missing_from_lexer, missing_from_parser))
+    }
+
+    /// Allow caseless tokenization
+    pub fn caseless(mut self, allow: bool) -> Self {
+        self.case_insensitive = allow;
+        self
     }
 
     /// If passed false, tokens used in the grammar but not defined in the lexer will cause a
