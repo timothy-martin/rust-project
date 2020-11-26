@@ -266,6 +266,18 @@ where
             ),
         };
 
+        //Check that lexerkind = flex if caseless specified
+        if self.case_insensitive {
+            match self.lexerkind {
+                LexerKind::Lex |
+                LexerKind::LRNonStreamingLexer => {
+                    panic!("caseless tokenization only supported with Flex");
+                }
+                LexerKind::Flex => {}
+            }
+        }
+
+
         outs.push_str(&format!(
             "{mod_vis} mod {mod_name} {{
 use lrlex::{{LexerDef, LRNonStreamingLexerDef, Rule}};

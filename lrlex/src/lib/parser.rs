@@ -129,7 +129,7 @@ impl<StorageT: TryFrom<usize>> LexParser<StorageT> {
                            .unwrap_or_else(|_| panic!("StorageT::try_from failed on {} (if StorageT is an unsigned integer type, this probably means that {} exceeds the type's maximum value)", rules_len, rules_len));
         let caseless = false; //TODO how to set this? Parser doesnt know about LekerKind
                                     //Setting to true or false has no effect on test outcome
-        
+
         let rule = Rule::new(Some(tok_id), name, re_str, caseless)
             .map_err(|_| self.mk_error(LexErrorKind::RegexError, i))?;
         self.rules.push(rule);
